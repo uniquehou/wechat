@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{% block title %} {% endblock %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
+
+	<!-- // <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script> -->
+	
+	 <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+	 <script type="text/javascript">
+	 	$(document).ready(function() {
+		 	$("#eye").click(function() {
+		 		// $("#page").attr('data-theme', 'b');
+		 		if ($(this).text() == "关灯") {
+			 		$("#page").attr("class", "ui-page ui-page-theme-b ui-page-footer-fixed ui-page-active");
+			 		$(this).text("开灯");
+		 		} else {
+			 		$("#page").attr("class", "ui-page ui-page-theme-a ui-page-footer-fixed ui-page-active");
+			 		$(this).text("关灯");
+		 		}
+		 	});
+	 	});
+	 </script>
+
+	<style type="text/css"> 
+		.ui-block-a, .ui-block-b, .ui-block-c{
+			padding-left: 10%;
+		}
+		.ui-content {
+			padding: 1em;
+		}
+		.ui-panel-wrapper {
+			min-height: initial;
+		}
+	</style>
+
+		{% block style %} {% endblock %}
+</head>
+<body>
+<div data-role="page" id="page" data-theme="a">
+	<div data-role='header'>
+	{% block header %}
+		<h1>阅读伴侣</h1>
+	{% endblock %}
+	<a href="#" id="eye" class="ui-btn ui-icon-cloud ui-btn-icon-right" >关灯</a>
+	</div>
+
+	<div data-role="main" class="ui-content">
+		{% block main %} {% endblock %}
+	</div>
+
+	<div data-role='footer' data-position="fixed">
+		<div class="ui-grid-b">
+			<div class="ui-block-a"><a href="{% url 'library:index' %}" class="ui-btn ui-icon-home ui-btn-icon-top"> 书 城 </a></div>
+			<div class="ui-block-b"><a href="{% url 'library:classification' %}" class="ui-btn ui-icon-bars ui-btn-icon-top"> 分 类 </a></div>
+			<div class="ui-block-c"><a href="{% url 'library:user' %}" class="ui-btn ui-icon-user ui-btn-icon-top"> 我 的 </a></div>
+		</div>
+	</div>
+
+	<div> {% block other %} {% endblock %} </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+{% extends 'library/base.html' %}
+{% block title %} 搜索 {% endblock %}
+{% block style %}
+<style>
+	.books .ui-block-a {
+		margin-left: -20px;
+	}
+	.books img{
+		width: 100%;
+		height: 138px;
+	}
+	.books a {
+		text-decoration: none;
+		text-align: center;
+	}
+	.error {
+		text-align: center;
+		color: #bbb;
+	}
+</style>
+{% endblock %}
+
+{% block main %}
+	<form method="post" action="{% url 'library:search' %}">
+		{% csrf_token %}
+		<input type="search" name="search" id="search">
+		<input type="submit" name="submit" value="搜索">
+	</form>
+
+	{% if book_a %}
+	<div class="ui-grid-b books">
+		
+		{% for each in book_a %}
+		<div class="ui-block-a">
+			<img src="{{each.image}}" class="book-name">
+			<a href="{% url 'library:book_detail' %}?id={{each.id}}">{{each.name}}</a>
+			<p class="book-writer">{{ each.author }}</p>
+		</div>
+		{% endfor %}
+		{% for each in book_b %}
+		<div class="ui-block-b">
+			<img src="{{each.image}}" class="book-name">
+			<a href="{% url 'library:book_detail' %}?id={{each.id}}">{{each.name}}</a>
+			<p class="book-writer">{{ each.author }}</p>
+		</div>
+		{% endfor %}
+		{% for each in book_c %}
+		<div class="ui-block-c">
+			<img src="{{each.image}}" class="book-name">
+			<a href="{% url 'library:book_detail' %}?id={{each.id}}">{{each.name}}</a>
+			<p class="book-writer">{{ each.author }}</p>
+		</div>
+		{% endfor %}
+	</div>
+	{% endif %}
+
+	{% if error %}
+		<p class="error">暂无结果</p>
+	{% endif %}
+{% endblock %}

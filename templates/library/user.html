@@ -1,0 +1,57 @@
+{% extends 'library/base.html' %}
+{% block title %} 个人中心 {% endblock %}
+{% block style %}
+<style>
+	.user-info p{
+		text-align: center;
+	}
+	.user-info img {
+		border-radius:60px; 
+	}
+
+	.gray {
+		width: 100%;
+		height: 10px;
+		background: #ddd;
+	}
+
+	.ui-listview, .ui-panel-inner>.ui-listview {
+		margin: 1em 0em !important;
+	}
+
+	.ui-page-theme-a .ui-btn, html .ui-bar-a .ui-btn, html .ui-body-a .ui-btn, html body .ui-group-theme-a .ui-btn, html head+body .ui-btn.ui-btn-a, .ui-page-theme-a .ui-btn:visited, html .ui-bar-a .ui-btn:visited, html .ui-body-a .ui-btn:visited, html body .ui-group-theme-a .ui-btn:visited, html head+body .ui-btn.ui-btn-a:visited {
+		background: #fff;
+	}
+</style>
+{% endblock %}
+
+{% block main %}
+{% load static %}
+	<div class="user-info">
+		<p><img src="{% static 'images/head.jpg' %}" class="ui-response"><p>
+		<p>紫色沙漏</p>
+	</div>
+
+	<!-- <div class="gray"></div> -->
+
+	<div class="abc">
+		<ul data-role="listview">
+			<li><a hred="#">个人资料</a></li>
+		</ul>
+
+		<ul data-role="listview">
+			<li><a hred="#">借书栏</a></li>
+			<li><a hred="#">预订</a></li>
+			<li><a hred="#">收藏</a></li>
+			<li><a hred="#">借阅历史</a></li>
+		</ul>
+
+		<!-- <div class="gray"></div> -->
+
+		<ul data-role="listview">
+			<li><a hred="#">还书</a></li>
+		</ul>
+	</div>
+
+
+{% endblock %}

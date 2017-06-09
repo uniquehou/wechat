@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>图书馆</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+	<!-- show book type -->
+	<p class="text-center">book type list</p>
+	<ul>
+		{% for type in Type %}
+			<li>{{ type.name }}----{{ type.note }}</li>
+		{% endfor %}
+	</ul>
+	<hr />
+	<!-- show book -->
+	<ul>
+		{% for each in book %}
+			<li>{{ book.name }} - {{ book.public }}</li>
+		{% endfor %}
+	</ul>
+</body>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+	<meta charset="UTF-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maxium-scale=1, user-scalable=no">
+
+	<title>jquery mobile</title>
+
+	<link rel="stylesheet" type="text/css" href="css/jquery_mobile.min.css">
+
+	<script type="text/javascript" src='js/jquery.js'></script>
+
+	<script type="text/javascript" src="js/jquery_mobile.min.js"></script>
+
+	<style type="text/css">
+
+		.ui-bar-inherit{
+
+			background: #000;
+
+		}
+
+		.ui-block-a, .ui-block-b, .ui-block-c{
+
+			padding-left: 10%;
+
+		}
+
+		.ui-panel {
+
+			width: 17em !important;
+
+		}
+
+		.ui-content {
+
+			padding: 1em;
+
+		}
+
+	</style>
+
+</head>
+
+<body>
+
+	<div data-role='header'>
+
+		<h1>阅读伴侣</h1>
+
+	</div>
+
+
+
+	<div data-role='main' class="ui-content">
+
+		<a href="#search" class="ui-btn">panel</a>
+
+	</div>
+
+
+
+	<div data-role='footer' data-position="fixed">
+
+		<div class="ui-grid-b">
+
+			<div class="ui-block-a"><a href="#" class="ui-btn ui-icon-home ui-btn-icon-top"> 书 城 </a></div>
+
+			<div class="ui-block-b"><a href="#" class="ui-btn ui-icon-user ui-btn-icon-top"> 我 的 </a></div>
+
+			<div class="ui-block-c"><a href="#" class="ui-btn ui-icon-back ui-btn-icon-top" data-rel="back"> 返 回 </a></div>
+
+		</div>
+
+	</div>
+
+
+
+	<div id="search" data-role="panel" data-theme="b"  data-position-fixed="true">
+
+		<div class="panel_content">
+
+			<h2>书籍分类</h2>
+
+			<div data-role="collapsible">
+
+				<h3>计算机</h3>
+
+				<ul data-role="listview">
+
+					<li><a href="#">&nbsp;&nbsp;网络</a></li>
+
+					<li><a href="#">&nbsp;&nbsp;网络</a></li>
+
+					<li><a href="#">&nbsp;&nbsp;网络</a></li>
+
+					<li><a href="#">&nbsp;&nbsp;网络</a></li>
+
+					<li><a href="#">&nbsp;&nbsp;网络</a></li>
+
+				</ul>
+
+			</div>
+
+
+
+			<div data-role="collapsible">
+
+				<h3>文学</h3>
+
+				<ul data-role="listview">
+
+					<li><a href="#">&nbsp;&nbsp;中国文学</a></li>
+
+					<li><a href="#">&nbsp;&nbsp;中国文学</a></li>
+
+					<li><a href="#">&nbsp;&nbsp;中国文学</a></li>
+
+					<li><a href="#">&nbsp;&nbsp;中国文学</a></li>
+
+					<li><a href="#">&nbsp;&nbsp;中国文学</a></li>
+
+				</ul>
+
+			</div>
+
+
+
+			<a href="#" data-rel="close" class="ui-btn ui-icon-close">回到首页</a>
+
+		</div>
+
+	</div>
+
+</body>
+
+</html>
