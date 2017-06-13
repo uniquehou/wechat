@@ -4,8 +4,9 @@ class User(models.Model):
 	name = models.CharField(max_length=100)
 	passwd = models.CharField(max_length=30)
 	mobile = models.CharField(max_length=30)
-	books = models.CharField(max_length=200, default='', blank=True)
-	favorite = models.CharField(max_length=200, default='', blank=True)
+	books = models.TextField(default='', blank=True)
+	borrow_column = models.TextField(default='', blank=True)
+	favorite = models.TextField(default='', blank=True)
 
 class Book(models.Model):
 	name = models.CharField(max_length=100)

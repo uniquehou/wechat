@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.db import connection
 from random import random
 from .models import Book_type, User, Book
 
@@ -8,14 +9,15 @@ def index(request):
 
 def login(request):
 	if request.method == "POST":
-		user = User.objects.get(mobile="request.POST['mobile']");
-		if password == request.POST['password']:
-			request.SESSION['name'] = user.name
+		user = User.objects.get(mobile=request.POST['mobile']);
+		if user.passwd == request.POST['password']:
+			request.session['name'] = user.name
+			request.session['id'] = user.id
+			return render(request, 'library/user.html')
 		else:
 			return render(request, 'library/login.html', {'error': 'error'})
-		pass
 	else:
-	return render(request, 'library/login.html')
+		return render(request, 'library/login.html')
 
 def classification(request):
 	if request.GET.get('id'):
@@ -49,16 +51,49 @@ def book_detail(request):
 	return render(request, 'library/book_detail.html', data)
 
 def user(request):
-	return render(request, 'library/user.html')
-
-def favorite(request):
-	if request.SESSION.get('name', False):
-		user = User.objects.get(name=request.SESSION.get('name'))
-		user.favorite += "%s " % request.GET['id']
-		user.save()
+	if request.session.get('name', False):
+		return render(request, 'library/user.html')
 	else:
 		return render(request, 'library/login.html')
 
+def favorite(request):
+	if request.GET.get('id'):
+		with connection.cursor() as cursor:
+			cursor.execute("update library_user set favorite = favorite + '%s ' where id = %s" % (request.GET['id'], request.session['id']))
+	else:
+		favorite_book = User.objects.get(id=request.session['id']).split()
+		books = Book.objects.filter(id__in=favorite_book)
+		data = {'books':books}
+		return render(request, 'library/favorite.html', data)
+
+def borrow_column(request):
+	if request.GET.get('id'):
+		with connection.cursor() as cursor:
+			cursor.execute("update library_user set borrow_column = concat(borrow_column, '%s ') where id = %s" % (request.GET['id'], request.session['id']))
+	else:
+		borrow_column_book = User.objects.get(id=request.session['id']).borrow_column.split()
+		books = Book.objects.filter(id__in=borrow_column_book)
+		data = {'books':books}
+		return render(request, 'library/borrow_column.html', data)
+
+def borrow(request):
+	with connection.cursor as cursor:
+		cursor.execute("update library_book set inventory = inventory - 1 where id = %s" % request.GET['id'])
+		cursor.execute("update library_user set book = concat(book, '%s ') where id = %s" % (request.GET['id'], request.session['id']))
+		cursor.execute("update library_user set borrow_column = replace(borrow_column. '%s ', '') where id = %s" % (request.GET['id'], request.session['id']))
+	return HttpResponseRedirect(reverse('library:borrow_column'))
+
+# show borrowed book
+def borrowed(request):
+	books = Book.objects.filter(id__in = User.objects.get(id=request.session['id']).books.split())
+	data = {'books': books}
+	return render(render, 'library/borrowed.html')
+
+def backbook(request):
+	with connection.cursor as cursor:
+		cursor.execute("update library_book set inventory = inventory + 1 where id = %s" % request.GET['id'])
+		cursor.execute("update library_user set book = replace(book. '%s ', '') where id = %s" % (request.GET['id'], request.session['id']))
+	return HttpResponseRedirect(reverse('library:borrowed'))
 
 
 

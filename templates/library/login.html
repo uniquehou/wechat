@@ -34,6 +34,7 @@
 	{% endif %}
 
 	<form class="form-horizontal" method="post" action="{% url 'library:login' %}">
+	{% csrf_token %}
 		<div class="form-group">
 			<label for="mobile" class="control-label col-xs-2">手机号</label>
 			<div class="col-xs-8">
@@ -44,7 +45,7 @@
 		<div class="form-group">
 			<label for="password" class="control-label col-xs-2">密码</label>
 			<div class="col-xs-8">
-				<input type="text" name="password" id="password" class="form-control">
+				<input type="password" name="password" id="password" class="form-control">
 			</div>
 		</div>
 

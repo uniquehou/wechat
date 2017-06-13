@@ -26,4 +26,6 @@ urlpatterns = [
     url(r'^user', views.user, name='user'),
     url(r'^login', views.login, name='login'),
     url(r'^favorite', views.favorite, name='favorite'),
+    url(r'^borrow', views.borrow, name='borrow'),
+    url(r'^backbook', views.backbook, name='backbook'),
 ]
