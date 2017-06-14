@@ -7,11 +7,11 @@ def test(request):
 	return HttpResponse('this is a test page')
 
 def scanQRCode(request):
-	token = getToken(1)
-	jsapi = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=%s&type=jsapi" % token
-	sign = Sign(jsapi, 'http://example.com')
-	data = {'sign': sign.sign()}
-	return render(request, 'basic/scanQRCode.html', data)
+        token = getToken(1)
+        jsapi = requests.get("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=%s&type=jsapi" % token).json()['ticket']
+        sign = Sign(jsapi, 'http://www.unihyj.cn/basic/scanQRCode/')
+        data = {'sign': sign.sign(), 'appId': 'wx2fab5d8fc63cdcee'}
+        return render(request, 'basic/scanQRCode.html', data)
 
 def getToken(request):
 	AppID = 'wx2fab5d8fc63cdcee'
@@ -49,17 +49,17 @@ def menu(request):
 		        {
 		            "type": "view", 
 		            "name": "借书", 
-		            "url": "http://59.110.220.138/library/borrowed"
+		            "url": "http://www.unihyj.cn/basic/scanQRCode"
 		        }, 
 		        {
 		            "type": "view", 
-		            "name": "借阅室", 
-		            "url": "http://59.110.220.138/library"
+		            "name": "图书馆", 
+		            "url": "http://www.unihyj.cn/library"
 		        }, 
 		        {
 		            "type": "view", 
 		            "name": "还书", 
-		            "url": "http://59.110.220.138/backbook"
+		            "url": "http://www.unihyj.cn/backbook"
 		        }
 		    ]
 		}"""

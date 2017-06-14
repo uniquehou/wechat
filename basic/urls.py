@@ -17,7 +17,7 @@ from django.conf.urls import url
 from . import views
 
 app_name = 'basic'
-urlpatterns = [ 
+urlpatterns = [
     url(r'^Token/$', views.Token, name='Token'),
 	url(r'^getToken/$', views.getToken, name='getToken'),
     url(r'^test/', views.test, name='test'),

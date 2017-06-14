@@ -25,7 +25,7 @@ SECRET_KEY = 'r)72m$dnu#ny_-f3(52e&b@h=hhnh*ei6%im=yp=sfv(2l*#4i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
