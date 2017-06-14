@@ -1,18 +1,27 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import requests
+from .verify import *
 
 def test(request):
 	return HttpResponse('this is a test page')
 
+def scanQRCode(request):
+	token = getToken(1)
+	jsapi = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=%s&type=jsapi" % token
+	sign = Sign(jsapi, 'http://example.com')
+	data = {'sign': sign.sign()}
+	return render(request, 'basic/scanQRCode.html', data)
+
 def getToken(request):
-	# AppID = 'wx454446d5decd4a00'
 	AppID = 'wx2fab5d8fc63cdcee'
-	# AppSecret = '6213c42c94e191a50148c6ff99c39a08'
 	AppSecret = 'e469f04bc8ae06b60f6a40215e46de01'
 	url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s" % (AppID, AppSecret)
 	access_token = requests.get(url)
-	return HttpResponse(access_token.json()['access_token'])
+	if isinstance(request, int):
+		return access_token.json()['access_token']
+	else:
+		return HttpResponse(access_token.json()['access_token'])
 
 def Token(request):
 	try:
@@ -36,25 +45,26 @@ def Token(request):
 
 def menu(request):
 	data = """{
-			'button': [{
-						'type': 'view',
-						'name': '借阅详情',
-						'url': 'http://www.taobao.com'
-					},
-					{
-						'type': 'view',
-						'name': '借阅室',
-						'url': 'http://www.taobao.com'
-					},
-					{
-						'type': 'view',
-						'name': '还书',
-						'url': 'http://www.taobao.com'
-					}]
+		    "button": [
+		        {
+		            "type": "view", 
+		            "name": "借书", 
+		            "url": "http://59.110.220.138/library/borrowed"
+		        }, 
+		        {
+		            "type": "view", 
+		            "name": "借阅室", 
+		            "url": "http://59.110.220.138/library"
+		        }, 
+		        {
+		            "type": "view", 
+		            "name": "还书", 
+		            "url": "http://59.110.220.138/backbook"
+		        }
+		    ]
 		}"""
 	access_token = getToken()
 	return HttpResponse(access_token)
 	url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s" % access_token
 	r = requests.post(url, data=data)
 	return HttpResponse(r.text)
-

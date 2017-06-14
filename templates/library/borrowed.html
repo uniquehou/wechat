@@ -1,1 +1,55 @@
-show borrowed book list
+{% extends 'library/base.html' %}
+{% block title %} 借书栏 {% endblock %}
+{% block style %}
+<style>
+	.booklist {
+		padding: 1em;
+		background: #fff;
+		height: 120px;
+		border-bottom: 10px solid #f9f9f9;
+	}
+	img {
+		width: 20%;
+	}
+	h3, h4{
+		position: relative;
+		top: -100px;
+		left: 25%;
+	}
+	.QR {
+		position: relative;
+		top: -220px;
+		left: 70%;
+		width: 30%;
+	}
+	.QR_1 {
+		width: 100%;
+	}
+</style>
+
+<script type="text/javascript">
+	$("img.QR").onclick(function () {
+		$("img.QR_1").attr('src', $(this).src);
+		alert($(this).src);
+	})
+</script>
+{% endblock %}
+
+{% block main %}
+{% load static %}
+
+	<center><h1>已借图书</h1></center>
+	{% for book in books %}
+	<div class="booklist">
+		<img src="{{ book.image }}"/>
+		<h3>{{ book.name }}</h3>
+		<h4>{{ book.author }}</h4>
+		<a href="#myPopup" data-rel="popup" data-position-to="window">
+    <img src="{% static 'images/QR.jpg' %}" class="QR"></a>
+	</div>
+	{% endfor %}
+
+	<div data-role="popup" id="myPopup">
+      <a href="#pageone" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img src="{% static 'images/QR.jpg' %}" class="QR_1" alt="Skaret View">
+    </div>
+{% endblock %}

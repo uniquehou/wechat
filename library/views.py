@@ -52,7 +52,8 @@ def book_detail(request):
 
 def user(request):
 	if request.session.get('name', False):
-		return render(request, 'library/user.html')
+		data = {'name': request.session['name']}
+		return render(request, 'library/user.html', data)
 	else:
 		return render(request, 'library/login.html')
 
@@ -70,17 +71,19 @@ def borrow_column(request):
 	if request.GET.get('id'):
 		with connection.cursor() as cursor:
 			cursor.execute("update library_user set borrow_column = concat(borrow_column, '%s ') where id = %s" % (request.GET['id'], request.session['id']))
+		return HttpResponseRedirect(reverse('library:borrow_column'))
 	else:
 		borrow_column_book = User.objects.get(id=request.session['id']).borrow_column.split()
+		# return HttpResponse(borrow_column_book)
 		books = Book.objects.filter(id__in=borrow_column_book)
 		data = {'books':books}
 		return render(request, 'library/borrow_column.html', data)
 
 def borrow(request):
-	with connection.cursor as cursor:
-		cursor.execute("update library_book set inventory = inventory - 1 where id = %s" % request.GET['id'])
-		cursor.execute("update library_user set book = concat(book, '%s ') where id = %s" % (request.GET['id'], request.session['id']))
-		cursor.execute("update library_user set borrow_column = replace(borrow_column. '%s ', '') where id = %s" % (request.GET['id'], request.session['id']))
+	# with connection.cursor as cursor:
+	# 	cursor.execute("update library_book set inventory = inventory - 1 where id = %s" % request.GET['id'])
+	# 	cursor.execute("update library_user set book = concat(book, '%s ') where id = %s" % (request.GET['id'], request.session['id']))
+	# 	cursor.execute("update library_user set borrow_column = replace(borrow_column. '%s ', '') where id = %s" % (request.GET['id'], request.session['id']))
 	return HttpResponseRedirect(reverse('library:borrow_column'))
 
 # show borrowed book

@@ -29,27 +29,27 @@
 {% load static %}
 	<div class="user-info">
 		<p><img src="{% static 'images/head.jpg' %}" class="ui-response"><p>
-		<p>紫色沙漏</p>
+		<p>{{ name }}</p>
 	</div>
 
 	<!-- <div class="gray"></div> -->
 
 	<div class="abc">
 		<ul data-role="listview">
-			<li><a hred="#">个人资料</a></li>
+			<li><a href="#">个人资料</a></li>
 		</ul>
 
 		<ul data-role="listview">
-			<li><a hred="#">借书栏</a></li>
-			<li><a hred="#">预订</a></li>
-			<li><a hred="#">收藏</a></li>
-			<li><a hred="#">借阅历史</a></li>
+			<li><a href="{% url 'library:borrow_column' %}">借书栏</a></li>
+			<li><a href="#">预订</a></li>
+			<li><a href="#">收藏</a></li>
+			<li><a href="#">借阅历史</a></li>
 		</ul>
 
 		<!-- <div class="gray"></div> -->
 
 		<ul data-role="listview">
-			<li><a hred="#">还书</a></li>
+			<li><a href="#">还书</a></li>
 		</ul>
 	</div>
 

@@ -18,8 +18,9 @@ from . import views
 
 app_name = 'basic'
 urlpatterns = [ 
-    url(r'^Token/$', views.Token),
-	url(r'^getToken/$', views.getToken),
-    url(r'^test/', views.test),
-    url(r'^menu/$', views.menu),
+    url(r'^Token/$', views.Token, name='Token'),
+	url(r'^getToken/$', views.getToken, name='getToken'),
+    url(r'^test/', views.test, name='test'),
+    url(r'^menu/$', views.menu, name='menu'),
+    url(r'^scanQRCode/$', views.scanQRCode, name='scanQRCode'),
 ]
