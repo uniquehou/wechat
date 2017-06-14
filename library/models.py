@@ -8,6 +8,16 @@ class User(models.Model):
 	borrow_column = models.TextField(default='', blank=True)
 	favorite = models.TextField(default='', blank=True)
 
+	openid = models.CharField(max_length=100, default='', blank=True)
+	nickname = models.CharField(max_length=100, default='', blank=True)
+	sex = models.CharField(max_length=100, default='', blank=True)
+	language = models.CharField(max_length=100, default='', blank=True)
+	city = models.CharField(max_length=100, default='', blank=True)
+	province = models.CharField(max_length=100, default='', blank=True)
+	country = models.CharField(max_length=100, default='', blank=True)
+	headimgurl = models.CharField(max_length=300, default='', blank=True)
+	privilege = models.CharField(max_length=100, default='', blank=True)
+
 class Book(models.Model):
 	name = models.CharField(max_length=100)
 	type_id = models.ForeignKey('Book_type', on_delete=models.CASCADE)

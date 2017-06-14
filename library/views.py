@@ -2,6 +2,7 @@ from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db import connection
 from random import random
+from urllib.parse import quote
 from .models import Book_type, User, Book
 
 def index(request):
@@ -11,12 +12,16 @@ def login(request):
 	if request.method == "POST":
 		user = User.objects.get(mobile=request.POST['mobile']);
 		if user.passwd == request.POST['password']:
-			request.session['name'] = user.name
 			request.session['id'] = user.id
+			request.session['name'] = user.name if len(user.name) else user.nickname
+			request.session['openid'] = user.openid
+			request.session['img'] = user.headimgurl
 			return render(request, 'library/user.html')
 		else:
 			return render(request, 'library/login.html', {'error': 'error'})
 	else:
+		# get userinfo
+
 		return render(request, 'library/login.html')
 
 def classification(request):
@@ -52,7 +57,7 @@ def book_detail(request):
 
 def user(request):
 	if request.session.get('name', False):
-		data = {'name': request.session['name']}
+		data = {'name': request.session['name'], 'image': request.session['img']}
 		return render(request, 'library/user.html', data)
 	else:
 		return render(request, 'library/login.html')

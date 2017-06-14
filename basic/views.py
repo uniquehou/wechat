@@ -1,17 +1,60 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from library.models import User
 import requests
+from urllib.parse import quote
 from .verify import *
 
 def test(request):
-	return HttpResponse('this is a test page')
+	return HttpResponse("this is test page")
+
+def getCodeUrl(requests):
+	appid = "wx2fab5d8fc63cdcee"
+	# redirect_url = quote('http://www.unihyj.cn' + request.path)
+	redirect_url = "http%3a%2f%2fwww.unihyj.cn%2fbasic%2flogin"
+	url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect" % (appid, redirect_url)
+	return HttpResponse(url)
+
+def login(request):
+	appid = "wx2fab5d8fc63cdcee"
+	secret = "e469f04bc8ae06b60f6a40215e46de01"
+	code = request.GET['code']
+	access_token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code" % (appid, secret, code)
+	new_access_token = requests.get(access_token_url)
+	access_token = new_access_token.json().get('access_token')
+	openid = new_access_token.json().get('openid')
+	userinfo_url = "https://api.weixin.qq.com/sns/userinfo?access_token=%s&openid=%s" % (access_token, openid)
+	userinfo = requests.get(userinfo_url)
+
+    # whether user sign
+	try:
+		user = User.objects.get(openid = userinfo.json().get(openid))
+	except:
+		user = User.objects.create(
+			openid = userinfo.json().get('openid'),
+			nickname = userinfo.json().get('nickname'),
+			sex = userinfo.json().get('sex'),
+			language = userinfo.json().get('language'),
+			city = userinfo.json().get('city'),
+			province = userinfo.json().get('province'),
+			country = userinfo.json().get('country'),
+			headimgurl = userinfo.json().get('headimgurl'),
+			privilege = userinfo.json().get('privilege'),
+		)
+
+    # user infomation into session
+	request.session['id'] = user.id
+	request.session['name'] = user.name if len(user.name) else user.nickname
+	request.session['openid'] = user.openid
+	request.session['img'] = user.headimgurl
+	return HttpResponseRedirect(reverse('library:user'))
 
 def scanQRCode(request):
-        token = getToken(1)
-        jsapi = requests.get("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=%s&type=jsapi" % token).json()['ticket']
-        sign = Sign(jsapi, 'http://www.unihyj.cn/basic/scanQRCode/')
-        data = {'sign': sign.sign(), 'appId': 'wx2fab5d8fc63cdcee'}
-        return render(request, 'basic/scanQRCode.html', data)
+	token = getToken(1)
+	jsapi = requests.get("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=%s&type=jsapi" % token).json()['ticket']
+	sign = Sign(jsapi, 'http://www.unihyj.cn/basic/scanQRCode/')
+	data = {'sign': sign.sign(), 'appId': 'wx2fab5d8fc63cdcee'}
+	return render(request, 'basic/scanQRCode.html', data)
 
 def getToken(request):
 	AppID = 'wx2fab5d8fc63cdcee'
@@ -45,24 +88,24 @@ def Token(request):
 
 def menu(request):
 	data = """{
-		    "button": [
-		        {
-		            "type": "view", 
-		            "name": "借书", 
-		            "url": "http://www.unihyj.cn/basic/scanQRCode"
-		        }, 
-		        {
-		            "type": "view", 
-		            "name": "图书馆", 
-		            "url": "http://www.unihyj.cn/library"
-		        }, 
-		        {
-		            "type": "view", 
-		            "name": "还书", 
-		            "url": "http://www.unihyj.cn/backbook"
-		        }
-		    ]
-		}"""
+	    "button": [
+	        {
+	            "type": "scancode_push", 
+	            "name": "借书", 
+	            "key": "borrow"
+	        }, 
+	        {
+	            "type": "view", 
+	            "name": "图书馆", 
+	            "url": "http://www.unihyj.cn/library"
+	        }, 
+	        {
+	            "type": "view", 
+	            "name": "还书", 
+	            "url": "http://www.unihyj.cn/backbook"
+	        }
+	    ]
+	}"""
 	access_token = getToken()
 	return HttpResponse(access_token)
 	url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s" % access_token
