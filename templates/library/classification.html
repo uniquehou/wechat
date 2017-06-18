@@ -25,8 +25,7 @@
 {% endblock %}
 
 {% block header %}
-	<a href="{% url 'library:search' %}" class="ui-btn ui-icon-search ui-btn-icon-left">搜索</a>
-	<h1>阅读伴侣</h1>
+	<a class="icon icon-app pull-left open-panel"></a>
 {% endblock %}
 
 {% block main %}
@@ -74,4 +73,19 @@
 		{% endfor %}
 	</div>
 	{% endif %}
+{% endblock %}
+
+{% block other %}
+    <div class="panel panel-left panel-reveal">
+        <div class="content-block">
+        	<h3>所有书籍分类</h3>
+            <div class="list-block">
+            <ul>
+            	{% for class in classes %}
+            	<li class="item-content item-link"><div class="item-inner"><div class="item-title">{{class.name}}</div></div></li>
+            	{% endfor %}
+            </ul>
+            <p><a href="#" class="close-panel">关闭</a></p>
+        </div>
+    </div>
 {% endblock %}

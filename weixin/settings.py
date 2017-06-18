@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['*',]
 INSTALLED_APPS = [
     'basic.apps.BasicConfig',
     'library.apps.LibraryConfig',
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,3 +129,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(os.path.dirname(__file__), '../static').replace('\\', '/'),
 )
+
+CRONJOBS = [
+	('*/1 * * * *', 'library.cron.schedule_job'),
+]

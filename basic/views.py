@@ -2,11 +2,13 @@ from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from library.models import User
 import requests
+from datetime import datetime
 from urllib.parse import quote
 from .verify import *
 
-def test(request):
-	return HttpResponse("this is test page")
+def test(request):	
+	user = User.objects.create(name=str(datetime.now()), passwd='test')
+	return HttpResponse(user.name)
 
 def getCodeUrl(requests):
 	appid = "wx2fab5d8fc63cdcee"

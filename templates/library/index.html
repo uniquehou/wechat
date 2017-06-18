@@ -1,13 +1,9 @@
 {% extends 'library/base.html' %}
 {% block title %} 书城 {% endblock %}
-{% block style %}
+{% block head %}
 	<style>
-		.books .ui-block-a {
-			margin-left: -20px;
-		}
 		.books img{
 			width: 100%;
-			height: 138px;
 		}
 		.books a {
 			text-decoration: none;
@@ -16,62 +12,60 @@
 	</style>
 {% endblock %}
 
-{% block header %}
-	<a href="{% url 'library:search' %}" class="ui-btn ui-icon-search ui-btn-icon-left">搜索</a>
-	<h1>阅读伴侣</h1>
-{% endblock %}
-
 {% block main %}
-	<div class="books">
-		<div class="ui-grid-b">
 
-			<div class="ui-block-a">
+	<div class="grid-demo books">
+		<div class="row">
+			<div class="col-33">
 				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
 				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
 				<p class="book-writer">[美] 加·泽文</p>
 			</div>
-			<div class="ui-block-b">
+			<div class="col-33">
 				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
 				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
 				<p class="book-writer">[美] 加·泽文</p>
 			</div>
-			<div class="ui-block-c">
+			<div class="col-33">
 				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
 				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
 				<p class="book-writer">[美] 加·泽文</p>
 			</div>
-			
-			<div class="ui-block-a">
-				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
-				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
-				<p class="book-writer">[美] 加·泽文</p>
-			</div>
-			<div class="ui-block-b">
-				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
-				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
-				<p class="book-writer">[美] 加·泽文</p>
-			</div>
-			<div class="ui-block-c">
-				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
-				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
-				<p class="book-writer">[美] 加·泽文</p>
-			</div>
-			
-			<div class="ui-block-a">
-				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
-				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
-				<p class="book-writer">[美] 加·泽文</p>
-			</div>
-			<div class="ui-block-b">
-				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
-				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
-				<p class="book-writer">[美] 加·泽文</p>
-			</div>
-			<div class="ui-block-c">
-				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
-				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
-				<p class="book-writer">[美] 加·泽文</p>
-			</div>
-
 		</div>
+		<div class="row">
+			<div class="col-33">
+				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
+				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
+				<p class="book-writer">[美] 加·泽文</p>
+			</div>
+			<div class="col-33">
+				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
+				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
+				<p class="book-writer">[美] 加·泽文</p>
+			</div>
+			<div class="col-33">
+				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
+				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
+				<p class="book-writer">[美] 加·泽文</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-33">
+				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
+				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
+				<p class="book-writer">[美] 加·泽文</p>
+			</div>
+			<div class="col-33">
+				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
+				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
+				<p class="book-writer">[美] 加·泽文</p>
+			</div>
+			<div class="col-33">
+				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
+				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
+				<p class="book-writer">[美] 加·泽文</p>
+			</div>
+		</div>
+	</div>
+
 {% endblock %}
