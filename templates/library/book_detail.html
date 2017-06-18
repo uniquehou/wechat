@@ -41,7 +41,7 @@
 
 {% block header %}
 	<a class="button button-link button-nav icon icon-left pull-left back"></a>
-	<a class="button button-link icon icon-star pull-right" href="{% url 'library:favorite' %}?id={{book.id}}"></a>
+	<a class="button button-link icon icon-star pull-right" href="{% url 'user:favorite' %}?id={{book.id}}"></a>
 {% endblock %}
 
 {% block main%}
@@ -59,7 +59,7 @@
 			<p><span>ISBN</span>: 9787559400574</p>
 		</div>
 
-		<a href="{% url 'library:order' %}?id={{book.id}}" class="button order">预订</a>
+		<a href="{% url 'user:order' %}?id={{book.id}}" class="button order">预订</a>
 	</div>
 
 		<div class="book_content">

@@ -1,59 +1,22 @@
 {% extends 'library/base.html' %}
 {% block title %} 书城 {% endblock %}
 
+{% block header %}
+	<a class="icon icon-back pull-left"></a>
+	<a href="{% url 'library:search' %}" class="icon icon-search pull-right"></a>
+{% endblock %}
+
 {% block main %}
 
 	<div class="grid-demo books">
 		<div class="row">
+			{% for book in books %}
 			<div class="col-33">
-				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
-				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
-				<p class="book-writer">[美] 加·泽文</p>
-			</div>
-			<div class="col-33">
-				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
-				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
-				<p class="book-writer">[美] 加·泽文</p>
-			</div>
-			<div class="col-33">
-				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
-				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
-				<p class="book-writer">[美] 加·泽文</p>
-			</div>
+			<img src="{{book.image}}" class="book-name">
+			<a href="{% url 'library:book_detail' %}?id={{book.id}}">{{ book.name }}</a>
+			<p class="book-writer">{{ book.author }}</p>
 		</div>
-		<div class="row">
-			<div class="col-33">
-				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
-				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
-				<p class="book-writer">[美] 加·泽文</p>
-			</div>
-			<div class="col-33">
-				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
-				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
-				<p class="book-writer">[美] 加·泽文</p>
-			</div>
-			<div class="col-33">
-				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
-				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
-				<p class="book-writer">[美] 加·泽文</p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-33">
-				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
-				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
-				<p class="book-writer">[美] 加·泽文</p>
-			</div>
-			<div class="col-33">
-				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
-				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
-				<p class="book-writer">[美] 加·泽文</p>
-			</div>
-			<div class="col-33">
-				<img src="https://img3.doubanio.com/lpic/s29411600.jpg" class="book-name">
-				<a href="{% url 'library:book_detail' %}">时光倒流的女孩</a>
-				<p class="book-writer">[美] 加·泽文</p>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
 

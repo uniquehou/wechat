@@ -27,7 +27,7 @@
 			<header class="bar bar-nav">
 				{% block header %}
 				<a class="button button-link button-nav icon icon-left pull-left back"></a>
-  				<a class="icon icon-refresh pull-right"></a>
+				<a class="icon icon-refresh pull-right" onclick="location.reload();"></a>
   				{% endblock %}
 				<h1 class="title">阅读伴侣</h1>
 			</header>
@@ -54,5 +54,7 @@
 	</div>
 
 	{% block other %} {% endblock %}
+
+	<script>$.init();</script>
 </body>
 </html>

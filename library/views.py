@@ -6,7 +6,9 @@ from urllib.parse import quote
 from .models import Book_type, User, Book
 
 def index(request):
-	return render(request, 'library/index.html')
+	books = Book.objects.all()
+	data = {"books": books}
+	return render(request, 'library/index.html', data)
 
 def classification(request):
 	if request.GET.get('id'):
@@ -20,11 +22,11 @@ def classification(request):
 	
 def search(request):
 	if request.POST.get('search'):
-		book = Book.objects.filter(name__contains=request.POST['search'].strip())
-		if len(book) == 0:
+		books = Book.objects.filter(name__contains=request.POST['search'].strip())
+		if len(books) == 0:
 			data = {'error': True}
 		else:
-			data = {'book_a': book[::3], 'book_b': book[1::3], 'book_c': book[2::3]}
+			data = {"books": books}
 		return render(request, 'library/search.html', data)
 	else:
 		return render(request, 'library/search.html')
@@ -32,7 +34,5 @@ def search(request):
 def book_detail(request):
 	book = Book.objects.get(id=request.GET['id'])
 	about = list(book.type_id.book_set.all())
-	data = {'book': book, 
-			'about': about
-			}
+	data = {'book': book, 'about': about}
 	return render(request, 'library/book_detail.html', data)

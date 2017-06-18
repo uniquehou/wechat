@@ -9,8 +9,11 @@
 		margin: -10px 0;
 	}
 	.user-info img {
-		border-radius: 100px; 
+		display: block;
 		width: 40%;
+		margin-left: 30%;
+		height: auto;
+		border-radius: 50%;
 	}
 
 	.gray {
@@ -40,7 +43,7 @@
 		<ul>
 			<li class="item-content item-link">
 				<div class="item-inner">
-					<div class="item-title">借书栏</div>
+					<a href="{% url 'user:borrow_column' %}"><div class="item-title">借书栏</div></a>
 				</div>
 			</li>
 			<li class="item-content item-link">
@@ -53,11 +56,6 @@
 					<a href="{% url 'user:favorite' %}"><div class="item-title">收藏</div></a>
 				</div>
 			</li>
-			<li class="item-content item-link">
-				<div class="item-inner">
-					<div class="item-title">借阅历史</div>
-				</div>
-			</li>
 		</ul>
 
 		<ul><li class="item-content item-link">
@@ -66,6 +64,4 @@
 			</div>
 		</li></ul>
 	</div>
-
-
 {% endblock %}

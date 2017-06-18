@@ -5,35 +5,34 @@
 	h2 {
 		text-align: center;
 	}
-	.result {
-		font-size: 16px;
-		border-bottom: 3px solid #000;
-		margin-bottom: 10px;
+	.center-block-title {
+		margin: 10px 0 -30px 0;
 	}
 </style>
 {% endblock %}
 
 {% block header %}
-	<a class="icon icon-app pull-left open-panel"></a>
+	<a class="button button-link button-nav icon icon-left pull-left back"></a>
+	<a href="{% url 'library:search' %}" class="icon icon-search pull-right"></a>
 {% endblock %}
 
 {% block main %}
 	{% if classes %}
-	<div data-theme="b">
 		<h2>书籍分类</h2>
-		<div data-inset="true" data-filter="true" data-filter-placeholder="筛选">
-			{% for class in classes %}
-			<div data-role="collapsible">
-				<h3>{{class.name}}</h3>
-				<ul data-role="listview">
-					{% for sub in class.book_type_set.all %}
-					<li><a href="{% url 'library:classification'  %}?id={{sub.id}}">&nbsp;&nbsp;{{sub.name}}</a></li>
-					{% endfor %}
-				</ul>
-			</div>
-			{% endfor %}
+		{% for class in classes %}
+		<div class="center-block-title">{{ class.name }}</div>
+		<div class="list-block">
+			<ul>
+				{% for sub in class.book_type_set.all %}
+				<a href="{% url 'library:classification' %}?id={{sub.id}}"><li class="item-content item-link">
+					<div class="item-inner">
+						<div class="item-title">{{ sub.name }}</div>
+					</div>
+				</li></a>
+				{% endfor %}
+			</ul>
 		</div>
-	</div>
+		{% endfor %}
 
 	{% else %}
 	<h2>{{class.name}}</h2>
@@ -48,19 +47,4 @@
 		{% endfor %}
 	</div>
 	{% endif %}
-{% endblock %}
-
-{% block other %}
-    <div class="panel panel-left panel-reveal">
-        <div class="content-block">
-        	<h3>所有书籍分类</h3>
-            <div class="list-block">
-            <ul>
-            	{% for class in classes %}
-            	<li class="item-content item-link"><div class="item-inner"><div class="item-title">{{class.name}}</div></div></li>
-            	{% endfor %}
-            </ul>
-            <p><a href="#" class="close-panel">关闭</a></p>
-        </div>
-    </div>
 {% endblock %}

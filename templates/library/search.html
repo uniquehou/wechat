@@ -1,6 +1,6 @@
 {% extends 'library/base.html' %}
 {% block title %} 搜索 {% endblock %}
-{% block style %}
+{% block head %}
 <style>
 	.books .ui-block-a {
 		margin-left: -20px;
@@ -18,39 +18,40 @@
 		color: #bbb;
 	}
 </style>
+
+<script>
+	function submit() {
+		document.getElementById("form").submit();
+	}
+</script>
+{% endblock %}
+
+{% block header %}
+	<a class="button button-link button-nav icon icon-left pull-left back"></a>
 {% endblock %}
 
 {% block main %}
-	<form method="post" action="{% url 'library:search' %}">
+	<form method="post" action="{% url 'library:search' %}" id="form">
 		{% csrf_token %}
-		<input type="search" name="search" id="search">
-		<input type="submit" name="submit" value="搜索">
+		<div class="searchbar row">
+			<div class="search-input col-85">
+				<input type="search" id="search" placeholder="输入关键字..." name="search">
+			</div>
+		<a class="button button-fill button-primary col-15" onclick="submit();"><span class="icon icon-search"></span></a>
+		</div>
 	</form>
 
-	{% if book_a %}
-	<div class="ui-grid-b books">
-		
-		{% for each in book_a %}
-		<div class="ui-block-a">
-			<img src="{{each.image}}" class="book-name">
-			<a href="{% url 'library:book_detail' %}?id={{each.id}}">{{each.name}}</a>
-			<p class="book-writer">{{ each.author }}</p>
+	{% if books %}
+	<div class="grid-demo">
+		<div class="row books">
+			{% for book in books %}
+			<div class="col-33">
+			<img src="{{book.image}}" class="book-name">
+			<a href="{% url 'library:book_detail' %}?id={{book.id}}">{{ book.name }}</a>
+			<p class="book-writer">{{ book.author }}</p>
 		</div>
-		{% endfor %}
-		{% for each in book_b %}
-		<div class="ui-block-b">
-			<img src="{{each.image}}" class="book-name">
-			<a href="{% url 'library:book_detail' %}?id={{each.id}}">{{each.name}}</a>
-			<p class="book-writer">{{ each.author }}</p>
+			{% endfor %}
 		</div>
-		{% endfor %}
-		{% for each in book_c %}
-		<div class="ui-block-c">
-			<img src="{{each.image}}" class="book-name">
-			<a href="{% url 'library:book_detail' %}?id={{each.id}}">{{each.name}}</a>
-			<p class="book-writer">{{ each.author }}</p>
-		</div>
-		{% endfor %}
 	</div>
 	{% endif %}
 
