@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>{% block title %} 阅读伴侣 {% endblock %}</title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
 	<link rel="stylesheet" href="http://m.sui.taobao.org/dist/css/sm.css">
 	<script src="http://m.sui.taobao.org/assets/js/zepto.js"></script>
 	<script src="http://m.sui.taobao.org/dist/js/sm.js"></script>
@@ -40,7 +41,7 @@
 					<span class="icon icon-app"></span>
 					<span class="tab-label">分 类</span>
 				</a>
-				<a class="tab-item external" href="{% url 'library:user' %}">
+				<a class="tab-item external" href="{% url 'user:user' %}">
 					<span class="icon icon-me"></span>
 					<span class="tab-label">我 的</span>
 				</a>

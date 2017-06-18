@@ -1,0 +1,63 @@
+{% extends 'library/base.html' %}
+{% block title %} 个人资料 {% endblock %}
+{% block head %}
+	<script>
+		{% if change %}
+		window.onload = function() {
+			alert("修改成功");
+		};
+		{% endif %}
+	</script>
+
+	<style>
+		img {
+			border-radius: 100px;
+			width: 40%;
+			margin: 10px 10%;
+		}
+	</style>
+{% endblock %}
+
+{% block main %}
+	<form method="post" action="{% url 'user:information' %}" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div class="list-block"><ul>
+		<li><div class="item-content">
+			<div class="item-inner">
+				<div class="item-title label">昵称</div>
+				<div class="item-input">
+					<input type="text" name="name" value="{{user.name}}">
+				</div>
+			</div>
+		</div></li>
+		
+		<li><div class="item-content">
+			<div class="item-inner">
+				<div class="item-title label">性别</div>
+				<div class="item-input">
+					帅哥 &nbsp;
+					<label class="label-switch">
+						<input type="checkbox" name="sex" {% ifequal user.sex '2' %} checked {% endifequal %}>
+						<div class="checkbox"></div>
+					</label>
+					&nbsp; 美女
+				</div>
+			</div>
+		</div></li>
+
+		<li><div class="item-content">
+			<div class="item-inner">
+				<div class="item-title label">头像</div>
+				<div class="item-input">
+					<img src="{{user.headimgurl}}" />
+					<input type="file" name="headimgurl" style="margin-bottom: 10px;">
+				</div>
+			</div>
+		</div></li>
+	</ul></div>
+
+		<div class="content-block">
+			<input type="submit" name="submit" value="修改" class="button button-fill button-big button-success">
+		</div>
+	</form>
+{% endblock %}

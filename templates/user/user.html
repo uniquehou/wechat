@@ -9,7 +9,7 @@
 		margin: -10px 0;
 	}
 	.user-info img {
-		border-radius:100px; 
+		border-radius: 100px; 
 		width: 40%;
 	}
 
@@ -26,15 +26,14 @@
 
 {% block main %}
 	<div class="user-info">
-		<p><img src=" http://wx.qlogo.cn/mmopen/1CfOgkK2cX0ADZ7scNe8U2CUhdd6NNX0lzgBJ8f3vPIYpfTqMn82lxXywS0l2t7u6Iw38VicGsETgWYIy3v3eKRNb94yV81SU/0
-" class="ui-response"><p>
-		<p class="name">破口大骂</p>
+		<p><img src="{{image}}" class="ui-response"><p>
+		<p class="name">{{name}}</p>
 	</div>
 
 	<div class="list-block">
 		<ul><li class="item-content item-link">
 				<div class="item-inner">
-					<div class="item-title">个人资料</div>
+					<a href="{% url 'user:information' %}"><div class="item-title">个人资料</div></a>
 				</div>
 		</li></ul>
 
@@ -51,7 +50,7 @@
 			</li>
 			<li class="item-content item-link">
 				<div class="item-inner">
-					<div class="item-title">收藏</div>
+					<a href="{% url 'user:favorite' %}"><div class="item-title">收藏</div></a>
 				</div>
 			</li>
 			<li class="item-content item-link">
@@ -63,7 +62,7 @@
 
 		<ul><li class="item-content item-link">
 			<div class="item-inner">
-				<div class="item-title">还书</div>
+				<a href="{% url 'user:backbook' %}"><div class="item-title"> 还书 </div></a>
 			</div>
 		</li></ul>
 	</div>

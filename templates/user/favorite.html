@@ -1,6 +1,7 @@
 {% extends 'library/base.html' %}
-{% block title %} 借书栏 {% endblock %}
-{% block style %}
+{% block title %} 收藏夹 {% endblock %}
+{% block head %}
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <style>
 	.booklist {
 		padding: 1em;
@@ -8,40 +9,38 @@
 		height: 120px;
 		border-bottom: 10px solid #f9f9f9;
 	}
+	.booklist .detail {
+		position: relative;
+		top: -120%;
+		left: 30%;
+	}
+	h3 {
+		margin: 0;
+	}
+	.detail span {
+		color: red;
+	}
+	h1 {
+		margin: 10px 0;
+	}
 	img {
 		width: 20%;
 	}
-	h3, h4{
-		position: relative;
-		top: -100px;
-		left: 25%;
-	}
-	.QR {
-		position: relative;
-		top: -220px;
-		left: 70%;
-		width: 30%;
-	}
 </style>
-
-<script type="text/javascript">
-	$("img.QR").onclick(function () {
-		$("img.QR_1").attr('src', $(this).src);
-		alert($(this).src);
-	})
-</script>
 {% endblock %}
 
 {% block main %}
 {% load static %}
 
-	<center><h1>收藏</h1></center>
+	<center><h1>收藏夹</h1></center>
 	{% for book in books %}
 	<div class="booklist">
 		<img src="{{ book.image }}"/>
-		<h3>{{ book.name }}</h3>
-		<h4>{{ book.author }}</h4>
-		<img src="{% static 'images/QR.jpg' %}" class="QR"></a>
+		<div class="detail">
+			<h3>{{ book.name }}</h3>
+			<small>{{ book.author }}</small> <br />
+			<small>现有本<span> {{ book.inventory }} </span>未借出</small>
+		</div>
 	</div>
 	{% endfor %}
 {% endblock %}

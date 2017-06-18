@@ -1,0 +1,80 @@
+{% extends 'library/base.html' %}
+{% block title %} 还书 {% endblock %}
+{% block head %}
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<style>
+	.booklist {
+		padding: 1em;
+		background: #fff;
+		height: 120px;
+		border-bottom: 10px solid #f9f9f9;
+	}
+	h1 {
+		margin: 10px 0;
+	}
+	img {
+		width: 20%;
+	}
+	h3, h4{
+		position: relative;
+		top: -100px;
+		left: 25%;
+	}
+	.QR {
+		position: relative;
+		top: -220px;
+		left: 70%;
+		width: 30%;
+	}
+	.QR_1 {
+		background: #f00;
+		position: absolute;
+		top: 100px;
+		left: 5%;
+		width: 90%;
+		height: auto;
+		padding-bottom: 20px;
+	}
+	.QR_1 img {
+		width: 100%;
+	}
+	#closeQR {
+		width: 50%;
+		height: 30px;
+	}
+</style>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("div.QR_1").hide();
+		$("#closeQR").click(function() {
+			$("div.QR_1").fadeOut();
+		});
+	});
+	function scan(src) {
+		$("img#QRCode").attr('src', src);
+		$("div.QR_1").css('background-color', '#fff');
+		$("div.QR_1").fadeIn();
+	};
+
+</script>
+{% endblock %}
+
+{% block main %}
+{% load static %}
+
+	<center><h1>已借书籍</h1></center>
+	{% for book in books %}
+	<div class="booklist">
+		<img src="{{ book.image }}"/>
+		<h3>{{ book.name }}</h3>
+		<h4>{{ book.author }}</h4>
+		<img src="{% static 'images/QR.jpg' %}" class="QR" onclick="scan(this.src);"></a>
+	</div>
+	{% endfor %}
+
+	<div class="QR_1">
+		<img src="" id="QRCode">
+		<center><button class="button button-round" id="closeQR">关闭</button></center>
+	</div>
+{% endblock %}
