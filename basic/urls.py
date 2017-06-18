@@ -25,4 +25,6 @@ urlpatterns = [
     url(r'^scanQRCode/$', views.scanQRCode, name='scanQRCode'),
     url(r'^login/$', views.login, name='login'),
     url(r'^getCodeUrl/$', views.getCodeUrl, name='getCodeUrl'),
+
+    url(r'^error', views.error, name='error'),
 ]

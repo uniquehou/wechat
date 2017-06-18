@@ -7,6 +7,17 @@
 	<script src="http://m.sui.taobao.org/assets/js/zepto.js"></script>
 	<script src="http://m.sui.taobao.org/dist/js/sm.js"></script>
 
+	<!-- 三列显示书籍样式 -->
+	<style>
+		.books img{
+			width: 100%;
+		}
+		.books a {
+			text-decoration: none;
+			text-align: center;
+		}
+	</style>
+
 	{% block head %} {% endblock %}
 </head>
 <body>
@@ -14,7 +25,7 @@
 		<div class="page">
 			<header class="bar bar-nav">
 				{% block header %}
-				<a class="icon icon-left pull-left"></a>
+				<a class="button button-link button-nav icon icon-left pull-left back"></a>
   				<a class="icon icon-refresh pull-right"></a>
   				{% endblock %}
 				<h1 class="title">阅读伴侣</h1>
@@ -29,7 +40,7 @@
 					<span class="icon icon-app"></span>
 					<span class="tab-label">分 类</span>
 				</a>
-				<a class="tab-item external" href="{% url 'library:user">
+				<a class="tab-item external" href="{% url 'library:user' %}">
 					<span class="icon icon-me"></span>
 					<span class="tab-label">我 的</span>
 				</a>

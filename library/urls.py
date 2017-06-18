@@ -23,10 +23,4 @@ urlpatterns = [
     url(r'^search$', views.search, name='search'),
     url(r'^classification$', views.classification, name='classification'),
     url(r'^book_detail', views.book_detail, name='book_detail'),
-    url(r'^user', views.user, name='user'),
-    url(r'^login', views.login, name='login'),
-    url(r'^favorite', views.favorite, name='favorite'),
-    url(r'^borrow$', views.borrow, name='borrow'),
-    url(r'^borrow_column', views.borrow_column, name='borrow_column'),
-    url(r'^backbook', views.backbook, name='backbook'),
 ]

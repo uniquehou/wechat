@@ -1,6 +1,6 @@
 {% extends 'library/base.html' %}
 {% block title %} 分类检索 {% endblock %}
-{% block style %}
+{% block head %}
 <style>
 	h2 {
 		text-align: center;
@@ -9,17 +9,6 @@
 		font-size: 16px;
 		border-bottom: 3px solid #000;
 		margin-bottom: 10px;
-	}
-	.books .ui-block-a {
-		margin-left: -20px;
-	}
-	.books img{
-		width: 100%;
-		height: 138px;
-	}
-	.books a {
-		text-decoration: none;
-		text-align: center;
 	}
 </style>
 {% endblock %}
@@ -48,27 +37,13 @@
 
 	{% else %}
 	<h2>{{class.name}}</h2>
-	<div class="ui-grid-b books">
+	<div class="row books">
 
-		{% for each in book_a %}
-		<div class="ui-block-a">
-			<img src="{{each.image}}" class="book-name">
-			<a href="{% url 'library:book_detail' %}?id={{each.id}}">{{each.name}}</a>
-			<p class="book-writer">{{ each.author }}</p>
-		</div>
-		{% endfor %}
-		{% for each in book_b %}
-		<div class="ui-block-b">
-			<img src="{{each.image}}" class="book-name">
-			<a href="{% url 'library:book_detail' %}?id={{each.id}}">{{each.name}}</a>
-			<p class="book-writer">{{ each.author }}</p>
-		</div>
-		{% endfor %}
-		{% for each in book_c %}
-		<div class="ui-block-c">
-			<img src="{{each.image}}" class="book-name">
-			<a href="{% url 'library:book_detail' %}?id={{each.id}}">{{each.name}}</a>
-			<p class="book-writer">{{ each.author }}</p>
+		{% for book in books %}
+		<div class="col-33">
+			<img src="{{book.image}}" class="book-name">
+			<a href="{% url 'library:book_detail' %}?id={{book.id}}">{{ book.name }}</a>
+			<p class="book-writer">{{ book.author }}</p>
 		</div>
 		{% endfor %}
 	</div>

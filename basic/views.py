@@ -113,3 +113,6 @@ def menu(request):
 	url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s" % access_token
 	r = requests.post(url, data=data)
 	return HttpResponse(r.text)
+
+def error(request):
+	return render(request, 'basic/error.html')

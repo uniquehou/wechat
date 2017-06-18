@@ -1,108 +1,95 @@
 {% extends 'library/base.html' %}
 {% block title %} {{book.name}} {% endblock %}
-{% block style %}
+{% block head %}
 <style>
-	.info {
-		margin-top: 30px;
+	.button-link {
+		font-size: 0.8rem;
+		line-height: 2.2rem;
+		height: 2.2rem;
+		color: #0894ec;
 	}
 	.info .book_image {
 		width: 40%;
-		margin-right: 5%;
 	}
-	.info p{
+	.info .detail{
 		position: relative;
-		top: -280px;
+		top: -255px;
 		left: 50%;
 		font: 12px Helvetica,Arial,sans-serif;
-		line-height: 1.62;
-	}
-	.info .ui-grid-a {
-		position: relative;
-		top: -280px;
 	}
 	.info span {
 		color: #666;
 		font: 12px Arial, Helvetica, sans-serif;;
-		font-style: 
+	}
+	.info .order {
+		position: relative;
+		top: -255px;
+	}
+	.info {
+		margin-bottom: -255px;
 	}
 
-	.content {
-		margin-top: -280px;
-	}
-	.content p{
+	.book_content p{
 		text-indent: 2em;
 	}
 	h3 {
 		color: #007722;
 	}
 
-	.recommended .ui-block-a {
-		margin-left: -20px;
-	}
-	.recommended img{
-		width: 100%;
-		height: 138px;
-	}
-	.recommended a {
-		text-decoration: none;
-		text-align: center;
-	}
 </style>
+{% endblock %}
+
+{% block header %}
+	<a class="button button-link button-nav icon icon-left pull-left back"></a>
+	<a class="button button-link icon icon-star pull-right" href="{% url 'library:favorite' %}?id={{book.id}}"></a>
 {% endblock %}
 
 {% block main%}
 	<div class="info">
 		<img src="{{book.image}}" class="book_image">
-		<p><span>所属分类</span>: {{book.type_id.name}}</p>
-		<p><span>作者</span>: {{book.author}} </p>
-		<p><span>版本号</span>: {{book.version}}</p>
-		<p><span>库存</span>: {{book.inventory}} </p>
-		<p><span>出版社</span>: {{book.public}}</p>
-		<p><span>出版时间</span>: {{book.public_time}}</p>
-		<p><span>页数</span>: {{book.page_num}}</p>
-		<p><span>压金</span>: {{book.price}} 元</p>
-		<p><span>ISBN</span>: 9787559400574</p>
-
-		<div class="ui-grid-a">
-			<div class="ui-blokc-a"><a href="#" class="ui-btn">借书/预计</a></div>
-			<div class="ui-blokc-b"><a href="{% url 'library:favorite' %}?id={{book.id}}" class="ui-btn">收藏</a></div>
+		<div class="detail">
+			<p><span>所属分类</span>: {{book.type_id.name}}</p>
+			<p><span>作者</span>: {{book.author}} </p>
+			<p><span>版本号</span>: {{book.version}}</p>
+			<p><span>库存</span>: {{book.inventory}} </p>
+			<p><span>出版社</span>: {{book.public}}</p>
+			<p><span>出版时间</span>: {{book.public_time}}</p>
+			<p><span>页数</span>: {{book.page_num}}</p>
+			<p><span>压金</span>: {{book.price}} 元</p>
+			<p><span>ISBN</span>: 9787559400574</p>
 		</div>
+
+		<a href="{% url 'library:order' %}?id={{book.id}}" class="button order">预订</a>
 	</div>
 
-	<div class="content">
-		<h3>内容简介  · · · · · ·</h3>
-		<p> {{book.content_abstract}} </p>
+		<div class="book_content">
+			<h3>内容简介  · · · · · ·</h3>
+			<p> {{book.content_abstract}} </p>
 
-		<h3>作者简介  · · · · · ·</h3>
-		<p> {{book.author_abstract}} </p>
+			<h3>作者简介  · · · · · ·</h3>
+			<p> {{book.author_abstract}} </p>
 
-		<h3>目录  · · · · · ·</h3>
-		<p> {{book.directory}} </p>
+			<h3>目录  · · · · · ·</h3>
+			<p> {{book.directory}} </p>
 
-		<h3>书评</h3>
-		<p> {{book.review}} </p>
-	</div>
+			<h3>书评</h3>
+			<p> {{book.review}} </p>
+		</div>
 
 	<hr />
 
 	<div class="recommended">
 		<h3>相关书籍</h3>
-		<div class="ui-grid-b">
-			<div class="ui-block-a">
-				<img src="{{about_a.image}}" class="book-name">
-				<a href="{% url 'library:book_detail' %}?id={{about_a.id}}">{{about_a.name}}</a>
-				<p class="book-writer">{{about_a.author}}</p>
+		<div class="row books">
+
+			{% for book in about %}
+			<div class="col-33">
+				<img src="{{book.image}}" />
+				<a href="{% url 'library:book_detail' %}?id={{book.id}}">{{book.name}}</a>
+				<p>{{book.author}}</p>
 			</div>
-			<div class="ui-block-b">
-				<img src="{{about_b.image}}" class="book-name">
-				<a href="{% url 'library:book_detail' %}?id={{about_b.id}}">{{about_b.name}}</a>
-				<p class="book-writer">{{about_b.author}}</p>
-			</div>
-			<div class="ui-block-c">
-				<img src="{{about_c.image}}" class="book-name">
-				<a href="{% url 'library:book_detail' %}?id={{about_c.id}}">{{about_c.name}}</a>
-				<p class="book-writer">{{about_c.author}}</p>
-			</div>
+			{% endfor %}
+			
 		</div>
 	</div>
 {% endblock %}
