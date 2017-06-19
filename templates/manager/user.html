@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>借阅管理</title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<link rel="stylesheet" href="http://m.sui.taobao.org/dist/css/sm.css">
+	<script src="http://m.sui.taobao.org/assets/js/zepto.js"></script>
+	<script src="http://m.sui.taobao.org/dist/js/sm.js"></script>
+
+	<style>
+		.list-block ul {
+			margin: 10px 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="page-group">
+		<div class="page">
+			<header class="bar bar-nav">
+				<a class="button button-link button-nav icon icon-left pull-left back"></a>
+				<a class="icon icon-refresh pull-right" onclick="location.reload();"></a>
+				<h1 class="title">阅读伴侣</h1>
+			</header>
+
+			<nav class="bar bar-tab">
+<!-- 				<a class="tab-item external" href="{% url 'library:index' %}">
+					<span class="icon icon-home"></span>
+					<span class="tab-label">书 城</span>
+				</a>
+				<a class="tab-item external" href="{% url 'library:classification' %}">
+					<span class="icon icon-app"></span>
+					<span class="tab-label">分 类</span>
+				</a>
+				<a class="tab-item external" href="{% url 'user:user' %}">
+					<span class="icon icon-me"></span>
+					<span class="tab-label">我 的</span>
+				</a> -->
+			</nav>
+
+			<div class="content content-padded">
+				<center><h1>借阅管理</h1></center>
+
+				<div class="list-block">
+					<ul>
+						<li class="item-content item-link">
+							<div class="item-inner">
+								<a href="#" onclick="scanQRCode();"><div class="item-title">借书</div></a>
+							</div>
+						</li>
+						<li class="item-content item-link">
+							<div class="item-inner">
+								<a href="#" onclick="scanQRCode();"><div class="item-title">还书</div></a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+	<script>
+		$.init();
+
+		wx.config({
+			debug: true,
+			appId: '{{appId}}',
+			timestamp: {{sign.timestamp}},
+			nonceStr: '{{sign.nonceStr}}', 
+			signature: '{{sign.signature}}',
+			jsApiList: [ 'scanQRCode',]
+		});
+
+		function scanQRCode() {
+			wx.scanQRCode({
+				needResult: 1,
+				desc: 'scanQRCode desc',
+				success: function (res) {
+					alert(JSON.stringify(res));
+				}
+			});
+		};
+	</script>
+</body>
+</html>

@@ -7,6 +7,7 @@ class User(models.Model):
 	books = models.TextField(default='', blank=True)
 	borrow_column = models.TextField(default='', blank=True)
 	favorite = models.TextField(default='', blank=True)
+	Type = models.CharField(max_length=10, default = '', blank=True)
 
 	openid = models.CharField(max_length=100, default='', blank=True)
 	nickname = models.CharField(max_length=100, default='', blank=True)

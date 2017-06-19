@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^basic/', include('basic.urls')),
     url(r'^library/', include('library.urls')),
     url(r'^user/', include('user.urls')),
+    url(r'^manager/', include('manager.urls')),
 ]

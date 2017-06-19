@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'basic.apps.BasicConfig',
     'library.apps.LibraryConfig',
     'user.apps.UserConfig',
+    'manager.apps.ManagerConfig',
     'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',

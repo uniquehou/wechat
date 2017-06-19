@@ -11,6 +11,9 @@ def login(request):
 			request.session['name'] = user.name if len(user.name) else user.nickname
 			request.session['openid'] = user.openid
 			request.session['img'] = user.headimgurl
+			if user.Type == "manager":
+				request.session['Type'] = 'manager'
+				return HttpResponseRedirect(reverse('manager:user'))
 			return render(request, 'user/user.html')
 		else:
 			return render(request, 'user/login.html', {'error': 'error'})
@@ -71,13 +74,6 @@ def borrow_column(request):
 		books = Book.objects.filter(id__in=borrow_column_book)
 		data = {'books':books}
 		return render(request, 'user/borrow_column.html', data)
-
-def borrow(request):
-	# with connection.cursor as cursor:
-	# 	cursor.execute("update library_book set inventory = inventory - 1 where id = %s" % request.GET['id'])
-	# 	cursor.execute("update library_user set book = concat(book, '%s ') where id = %s" % (request.GET['id'], request.session['id']))
-	# 	cursor.execute("update library_user set borrow_column = replace(borrow_column. '%s ', '') where id = %s" % (request.GET['id'], request.session['id']))
-	return HttpResponseRedirect(reverse('library:borrow_column'))
 
 # show borrowed book
 def borrowed(request):

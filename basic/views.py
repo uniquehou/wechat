@@ -5,10 +5,11 @@ import requests
 from datetime import datetime
 from urllib.parse import quote
 from .verify import *
+from manager import views
 
-def test(request):	
-	user = User.objects.create(name=str(datetime.now()), passwd='test')
-	return HttpResponse(user.name)
+def test(request):
+
+	return HttpResponse("%s: %s" % (status, User.objects.get(id=1).books))
 
 def getCodeUrl(requests):
 	appid = "wx2fab5d8fc63cdcee"
@@ -49,6 +50,9 @@ def login(request):
 	request.session['name'] = user.name if len(user.name) else user.nickname
 	request.session['openid'] = user.openid
 	request.session['img'] = user.headimgurl
+	if user.Type == "manager":
+		request.session.Type = 'manager'
+		return HttpResponseRedirect(reverse('manager:user'))
 	return HttpResponseRedirect(reverse('library:user'))
 
 def scanQRCode(request):
@@ -56,7 +60,10 @@ def scanQRCode(request):
 	jsapi = requests.get("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=%s&type=jsapi" % token).json()['ticket']
 	sign = Sign(jsapi, 'http://www.unihyj.cn/basic/scanQRCode/')
 	data = {'sign': sign.sign(), 'appId': 'wx2fab5d8fc63cdcee'}
-	return render(request, 'basic/scanQRCode.html', data)
+	if isinstance(request, int):
+		return data
+	else:
+		return render(request, 'basic/scanQRCode.html', data)
 
 def getToken(request):
 	AppID = 'wx2fab5d8fc63cdcee'
