@@ -29,12 +29,7 @@
 
 {% block main %}
 	<div class="user-info">
-		<p><img src="{{image}}" class="ui-response"><p>
-		<p class="name">{{name}}</p>
-	</div>
-
-	<div class="list-block">
-		<ul><li class="item-content item-link">
+		<p><img src="{{image}}" class="item-content item-link">
 				<div class="item-inner">
 					<a href="{% url 'user:information' %}"><div class="item-title">个人资料</div></a>
 				</div>

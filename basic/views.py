@@ -53,7 +53,7 @@ def login(request):
 	if user.Type == "manager":
 		request.session.Type = 'manager'
 		return HttpResponseRedirect(reverse('manager:user'))
-	return HttpResponseRedirect(reverse('library:user'))
+	return HttpResponseRedirect(reverse('user:user'))
 
 def scanQRCode(request):
 	token = getToken(1)

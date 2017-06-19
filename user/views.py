@@ -11,10 +11,11 @@ def login(request):
 			request.session['name'] = user.name if len(user.name) else user.nickname
 			request.session['openid'] = user.openid
 			request.session['img'] = user.headimgurl
+			return HttpResponse(user.Tyep)
 			if user.Type == "manager":
 				request.session['Type'] = 'manager'
 				return HttpResponseRedirect(reverse('manager:user'))
-			return render(request, 'user/user.html')
+			return HttpResponseRedirect(reverse('user:user'))
 		else:
 			return render(request, 'user/login.html', {'error': 'error'})
 	else:

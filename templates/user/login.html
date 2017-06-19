@@ -25,6 +25,9 @@
 		color: #aaa;
 		margin-bottom: -15px;
 	}
+	.weixin img{
+		width: 20%;
+	}
 	.weixin a {
 		margin-left: 40%;
 	}
@@ -35,11 +38,11 @@
 {% endblock %}
 
 {% block main %}
+	<img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=4003502413,4072842394&fm=26&gp=0.jpg" class="logo">
+
 	{% if error %}
 		<p class="error">用户名或密码错误</p>
 	{% endif %}
-
-	<img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=4003502413,4072842394&fm=26&gp=0.jpg" class="logo">
 
 	<form method="post" action="{% url 'user:login' %}">
 	{% csrf_token %}
@@ -70,7 +73,7 @@
 	
 	<div class="weixin">
 		<hr />
-		<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2fab5d8fc63cdcee&redirect_uri=http%3a%2f%2fwww.unihyj.cn%2fbasic%2flogin&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect"><img src="http://a2.qpic.cn/psb?/V11UhFqG3sCwWy/460BY0E0cafgytFDU8q3EfkQA0neAwIiIK7GlVydKjM!/m/dBkBAAAAAAAA&bo=OAA4AAAAAAARBzA!&rf=photolist" class="img-responsive center-block img-rounded"/></a>
-		<p class="text-center">use weisin to login</p>
+		<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2fab5d8fc63cdcee&redirect_uri=http%3a%2f%2fwww.unihyj.cn%2fbasic%2flogin&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect"><img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1744032013,2517964115&fm=58" class="img-responsive center-block img-rounded"/></a>
+		<p class="text-center">使用微信登录</p>
 	</div>
 {% endblock %}
