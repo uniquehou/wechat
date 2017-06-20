@@ -41,7 +41,14 @@
 
 {% block header %}
 	<a class="button button-link button-nav icon icon-left pull-left back"></a>
-	<a class="button button-link icon icon-star pull-right" href="{% url 'user:favorite' %}?id={{book.id}}"></a>
+	<a class="button button-link icon icon-star pull-right" href="{% url 'user:favorite' %}?id={{book.id}}">
+	{% ifequal favorite '1' %}
+		<a class="button button-link icon icon-star pull-right" href="#" onclick="alert('已收藏');">
+		<span class="badge">已收藏</span></a>
+	{% endifequal %}
+	{% ifequal favorite '0' %}
+		<a class="button button-link icon icon-star pull-right" href="{% url 'user:favorite' %}?id={{book.id}}"></a>
+	{% endifequal %}
 {% endblock %}
 
 {% block main%}

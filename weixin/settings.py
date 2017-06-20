@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'weixin',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'mysqlrootpndc',
         'HOST': 'localhost',
         'PORT': '3306',
     }

@@ -29,10 +29,16 @@
 
 {% block main %}
 	<div class="user-info">
-		<p><img src="{{image}}" class="item-content item-link">
+		<p><img src="{{image}}" class="item-content item-link"></p>
+		<p>{{name}}</p>
+
+		<div class="list-block">
+		<ul><li>
+			<div class="item-content item-link">
 				<div class="item-inner">
 					<a href="{% url 'user:information' %}"><div class="item-title">个人资料</div></a>
 				</div>
+			</div>
 		</li></ul>
 
 		<ul>
@@ -58,5 +64,6 @@
 				<a href="{% url 'user:backbook' %}"><div class="item-title"> 还书 </div></a>
 			</div>
 		</li></ul>
+		</div>
 	</div>
 {% endblock %}

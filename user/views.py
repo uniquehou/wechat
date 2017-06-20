@@ -1,5 +1,6 @@
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
+from django.db import connection
 from library.models import *
 import os
 
@@ -11,7 +12,6 @@ def login(request):
 			request.session['name'] = user.name if len(user.name) else user.nickname
 			request.session['openid'] = user.openid
 			request.session['img'] = user.headimgurl
-			return HttpResponse(user.Tyep)
 			if user.Type == "manager":
 				request.session['Type'] = 'manager'
 				return HttpResponseRedirect(reverse('manager:user'))
@@ -55,14 +55,18 @@ def information(request):
 	return render(request, 'user/information.html', data)
 
 def favorite(request):
-	if request.GET.get('id'):
-		with connection.cursor() as cursor:
-			cursor.execute("update library_user set favorite = favorite + '%s ' where id = %s" % (request.GET['id'], request.session['id']))
+	if request.session.get('name'):
+		if request.GET.get('id'):
+			with connection.cursor() as cursor:
+				cursor.execute("update library_user set favorite = concat(favorite, '%s ') where id = %s" % (request.GET['id'], request.session['id']))
+			return HttpResponseRedirect("/library/book_detail?id=%s" % request.GET['id'])
+		else:
+			favorite_book = User.objects.get(id=request.session['id']).favorite.split()
+			books = Book.objects.filter(id__in=favorite_book)
+			data = {'books':books}
+			return render(request, 'user/favorite.html', data)
 	else:
-		favorite_book = User.objects.get(id=request.session['id']).favorite.split()
-		books = Book.objects.filter(id__in=favorite_book)
-		data = {'books':books}
-		return render(request, 'user/favorite.html', data)
+		return HttpResponseRedirect(reverse("user:login"))
 
 def borrow_column(request):
 	if request.GET.get('id'):

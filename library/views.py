@@ -34,5 +34,6 @@ def search(request):
 def book_detail(request):
 	book = Book.objects.get(id=request.GET['id'])
 	about = list(book.type_id.book_set.all())
-	data = {'book': book, 'about': about}
+	favorite = 1 if str(request.GET['id']) in User.objects.get(id=request.session['id']).favorite else 0
+	data = {'book': book, 'about': about, 'favorite':favorite }
 	return render(request, 'library/book_detail.html', data)
